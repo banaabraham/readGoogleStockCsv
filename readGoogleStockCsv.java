@@ -1,9 +1,18 @@
-import java.util.*;
-import java.io.*;
-
-public class readGoogleStockCsv {
+class readCSV{
 	
-	static ArrayList<ArrayList<String>> getData(InputStream f){
+	InputStream f;
+	ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+	ArrayList<Double> close = new ArrayList<Double>();
+	ArrayList<Integer> volume = new ArrayList<Integer>();
+	readCSV(String dir){
+		try{
+			f = new FileInputStream(dir);
+		}catch(Exception e){
+			System.out.println(e);
+		}		
+		getData();
+	}
+	ArrayList<ArrayList<String>> getData(){
 		int c;
 		StringBuffer s = new StringBuffer();
 		ArrayList<String> date = new ArrayList<String>();
@@ -11,8 +20,7 @@ public class readGoogleStockCsv {
 		ArrayList<String> high = new ArrayList<String>();
 		ArrayList<String> low = new ArrayList<String>();
 		ArrayList<String>  close = new ArrayList<String>();
-		ArrayList<String> volume = new ArrayList<String>();
-		ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+		ArrayList<String> volume = new ArrayList<String>();	
 		data.add(date);
 		data.add(open);
 		data.add(high);
@@ -30,6 +38,7 @@ public class readGoogleStockCsv {
 				}else{
 					ArrayList<String> temp = data.get(index);
 					temp.add(s.toString());
+					//System.out.println(s.toString());
 					s.delete(0,s.length());
 					index = index+1;			
 				}											
@@ -40,15 +49,48 @@ public class readGoogleStockCsv {
 		return data;
 	}
 	
+	ArrayList<Double> getClose(){
+		ArrayList<String> temp = data.get(4);
+		temp.remove(0);
+		ArrayList<Double> close = new ArrayList<Double>();
+		for(String s: temp){
+			try{
+				double d = Double.parseDouble(s);
+				close.add(d);
+			}catch(Exception e){
+				continue;
+			}
+			
+		}
+		return close;	
+	}
+	
+	ArrayList<Integer> getVolume(){
+		ArrayList<String> temp = data.get(5);
+		temp.remove(0);
+		ArrayList<Integer> volume = new ArrayList<Integer>();
+		for(String s: temp){
+			try{
+				int d = Integer.parseInt(s);
+				volume.add(d);
+			}catch(Exception e){
+				continue;
+			}			
+		}
+		return volume;	
+	}
+	
+}
+
+
+public class readGoogleStockCsv{
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String Directory = "CSV Dir";
-		try{
-			InputStream f = new FileInputStream(Directory);
-			ArrayList<ArrayList<String>> data = getData(f);
-		} catch(Exception e){
-			System.out.println(e);
-		}		
+		readCSV wskt = new readCSV(Directory);
+		ArrayList<ArrayList<String>> s = wskt.getData();	
+		System.out.println(wskt.getClose());
+		System.out.println(wskt.getVolume());
 	}
 }

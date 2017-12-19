@@ -30,7 +30,6 @@ public class readGoogleStockCsv {
 				}else{
 					ArrayList<String> temp = data.get(index);
 					temp.add(s.toString());
-					//System.out.println(s.toString());
 					s.delete(0,s.length());
 					index = index+1;			
 				}											

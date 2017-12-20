@@ -86,12 +86,11 @@ class readCSV{
 public class readGoogleStockCsv extends plotCSV{
 	
 	readGoogStockCsv(String title, String dir) {
-		super(title, dir);
+		super(dir);
 	}
 
 	public static void main(String[] args) {
 		String dir = "D:\\goog.csv";
-		String title = dir.split("\\\\")[3].replace(".csv", "");
-		plotCSV plot = new plotCSV(title,dir);
+		plotCSV plot = new plotCSV(dir);
 	}
 }

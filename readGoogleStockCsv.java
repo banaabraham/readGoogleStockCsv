@@ -83,14 +83,15 @@ class readCSV{
 }
 
 
-public class readGoogleStockCsv{
+public class readGoogleStockCsv extends plotCSV{
 	
+	readGoogStockCsv(String title, String dir) {
+		super(title, dir);
+	}
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String Directory = "CSV Dir";
-		readCSV wskt = new readCSV(Directory);
-		ArrayList<ArrayList<String>> s = wskt.getData();	
-		System.out.println(wskt.getClose());
-		System.out.println(wskt.getVolume());
+		String dir = "D:\\goog.csv";
+		String title = dir.split("\\\\")[3].replace(".csv", "");
+		plotCSV plot = new plotCSV(title,dir);
 	}
 }

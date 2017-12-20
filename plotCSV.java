@@ -9,8 +9,14 @@ import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
 public class plotCSV extends ApplicationFrame{
-	plotCSV(String title,String dir){
-		super(title);
+	
+	static getTitle(String dir){
+		return dir.split("\\\\")[3].replace(".csv", "");
+	}
+	
+	plotCSV(String dir){
+		super(getTitle(dir));
+		String title = getTitle(dir);
 		readCSV datas = new readCSV(dir);
 		ArrayList<Double> close = datas.getClose();
 		XYSeries series = new XYSeries(title);
